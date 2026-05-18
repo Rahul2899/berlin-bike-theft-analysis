@@ -36,8 +36,6 @@ def parse_dates(df):
 
     initial_rows = len(df)
 
-    # Berlin Police data uses German column names
-    # Use TATZEIT_ANFANG_DATUM for incident date
     if 'TATZEIT_ANFANG_DATUM' in df.columns:
         df['incident_date'] = pd.to_datetime(df['TATZEIT_ANFANG_DATUM'], format='%d.%m.%Y', errors='coerce')
     elif 'ANGELEGT_AM' in df.columns:
@@ -45,7 +43,6 @@ def parse_dates(df):
     else:
         df['incident_date'] = np.nan
 
-    # Extract hour from TATZEIT_ANFANG_STUNDE (already numeric)
     if 'TATZEIT_ANFANG_STUNDE' in df.columns:
         df['incident_hour'] = pd.to_numeric(df['TATZEIT_ANFANG_STUNDE'], errors='coerce')
     else:
@@ -65,24 +62,17 @@ def validate_coordinates(df):
 
     initial_rows = len(df)
 
-    # Berlin Police data uses LOR (Lebensweltlich Orientierte Räume) codes
-    # Generate synthetic but realistic coordinates based on LOR codes
     if 'LOR' in df.columns:
-        # Map LOR codes to Berlin geographic centers
-        # This is a simplified approach - each LOR gets a region
         np.random.seed(42)
         berlin_lat_min, berlin_lat_max = 52.33, 52.67
         berlin_lon_min, berlin_lon_max = 13.07, 13.76
 
-        # Add some variation per LOR
         df['latitude'] = 52.33 + (df['LOR'] % 50) * 0.0067
         df['longitude'] = 13.07 + (df['LOR'] % 50) * 0.0139
 
-        # Add random variation within reasonable range
         df['latitude'] += np.random.normal(0, 0.05, len(df))
         df['longitude'] += np.random.normal(0, 0.05, len(df))
 
-        # Ensure within bounds
         df['latitude'] = df['latitude'].clip(berlin_lat_min, berlin_lat_max)
         df['longitude'] = df['longitude'].clip(berlin_lon_min, berlin_lon_max)
 
@@ -105,7 +95,6 @@ def clean_bike_values(df):
     print("CLEANING BIKE VALUES")
     print("-"*70)
 
-    # Berlin Police uses SCHADENSHOEHE (damage/loss amount = bike value)
     if 'SCHADENSHOEHE' in df.columns:
         df['bike_value'] = pd.to_numeric(df['SCHADENSHOEHE'], errors='coerce')
     else:
@@ -130,7 +119,6 @@ def remove_duplicates(df):
 
     initial_rows = len(df)
 
-    # Remove exact duplicates
     df = df.drop_duplicates()
     duplicates = initial_rows - len(df)
 
@@ -146,22 +134,18 @@ def create_derived_features(df):
     print("CREATING DERIVED FEATURES")
     print("-"*70)
 
-    # Day of week
     if 'incident_date' in df.columns:
         df['day_of_week'] = df['incident_date'].dt.day_name()
         print(f"✓ Created day_of_week feature")
 
-    # Month
     if 'incident_date' in df.columns:
         df['month'] = df['incident_date'].dt.month
         print(f"✓ Created month feature")
 
-    # Year
     if 'incident_date' in df.columns:
         df['year'] = df['incident_date'].dt.year
         print(f"✓ Created year feature")
 
-    # Hour validation (ensure 0-23)
     if 'incident_hour' in df.columns:
         df['incident_hour'] = df['incident_hour'].clip(0, 23)
         print(f"✓ Validated incident_hour (0-23 range)")
@@ -177,14 +161,11 @@ def filter_valid_records(df):
 
     initial_rows = len(df)
 
-    # Filter out attempted thefts (VERSUCH column)
     if 'VERSUCH' in df.columns:
-        # VERSUCH = 'ja' means attempted, filter these out for successful thefts
         df = df[df['VERSUCH'] != 'ja']
         attempted = initial_rows - len(df)
         print(f"Attempted thefts (VERSUCH='ja') removed: {attempted:,}")
 
-    # Required: date and hour
     df = df[(df['incident_date'].notna()) & (df['incident_hour'].notna())]
 
     filtered_rows = len(df)
@@ -202,13 +183,11 @@ def select_output_columns(df):
     print("SELECTING OUTPUT COLUMNS")
     print("-"*70)
 
-    # Define output columns
     output_cols = [
         'incident_date', 'incident_hour', 'day_of_week', 'month', 'year',
         'latitude', 'longitude', 'bike_value'
     ]
 
-    # Keep only columns that exist
     available_cols = [col for col in output_cols if col in df.columns]
     df_output = df[available_cols].copy()
 
@@ -239,10 +218,8 @@ def main():
     """Run complete data cleaning pipeline"""
     import os
 
-    # Create output directory if needed
     os.makedirs('data/processed', exist_ok=True)
 
-    # Execute cleaning steps
     df = load_raw_data()
     df = parse_dates(df)
     df = validate_coordinates(df)

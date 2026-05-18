@@ -73,7 +73,6 @@ def check_date_range(df):
     print("TEMPORAL COVERAGE")
     print("-"*70)
 
-    # Find date columns
     date_cols = df.select_dtypes(include=['object']).columns
 
     for col in date_cols:

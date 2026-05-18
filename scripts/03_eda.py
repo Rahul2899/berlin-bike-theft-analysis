@@ -34,7 +34,6 @@ def explore_temporal_patterns(df):
     print("TEMPORAL PATTERNS")
     print("-"*70)
 
-    # Hour analysis
     print("\n1. THEFTS BY HOUR")
     thefts_by_hour = df['incident_hour'].value_counts().sort_index()
     peak_hour = thefts_by_hour.idxmax()
@@ -43,7 +42,6 @@ def explore_temporal_patterns(df):
     print(f"Quietest hour: {int(thefts_by_hour.idxmin())}:00 ({int(thefts_by_hour.min()):,} thefts)")
     print(f"Peak vs quietest: {peak_count / thefts_by_hour.min():.1f}x difference")
 
-    # Day of week analysis
     print("\n2. THEFTS BY DAY OF WEEK")
     day_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     thefts_by_day = df['day_of_week'].value_counts().reindex(day_order)
@@ -58,7 +56,6 @@ def explore_temporal_patterns(df):
     print(f"Weekend thefts: {int(weekend_total):,} ({weekend_pct:.1f}%)")
     print(f"Ratio: Weekdays are {weekday_total/weekend_total:.1f}x more dangerous")
 
-    # Month analysis
     print("\n3. THEFTS BY MONTH")
     thefts_by_month = df['month'].value_counts().sort_index()
     print(thefts_by_month.to_string())
@@ -82,7 +79,6 @@ def explore_geographic_patterns(df):
         print(f"  Latitude range: {df['latitude'].min():.4f} - {df['latitude'].max():.4f}")
         print(f"  Longitude range: {df['longitude'].min():.4f} - {df['longitude'].max():.4f}")
 
-        # Create simple geographic clusters (for illustration)
         lat_median = df['latitude'].median()
         lon_median = df['longitude'].median()
 
