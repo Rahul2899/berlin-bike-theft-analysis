@@ -31,11 +31,11 @@ jobs:
       
       - run: python src/analysis.py > analysis_latest.txt
       
-      - name: Generate visualizations
-        run: python scripts/06_generate_visualizations.py
+      - run: python scripts/06_generate_visualizations.py
       
-      - name: Update documentation with latest stats
-        run: python scripts/05_update_documentation.py
+      - run: python scripts/07_create_animated_videos.py
+      
+      - run: python scripts/05_update_documentation.py
       
       - name: Check if anything changed
         id: check-changes
@@ -52,7 +52,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/processed/geocoded_data.csv README.md ANALYSIS.md visualizations/ analysis_latest.txt
-          git commit -m "Auto-update: Latest Berlin bike theft analysis & visualizations ($(date +'%Y-%m-%d'))"
+          git commit -m "Auto-update: Latest Berlin bike theft analysis, visualizations & animations ($(date +'%Y-%m-%d'))"
           git push
       
       - name: Create Release
@@ -67,13 +67,14 @@ jobs:
             **Date:** $(date +'%Y-%m-%d')
             **Records:** $(wc -l < data/processed/geocoded_data.csv)
             
-            Latest Berlin bike theft analysis with auto-generated visualizations.
+            Complete Berlin bike theft analysis with auto-generated visualizations & animations.
             
             ### What's Updated
-            - ✅ Latest police data downloaded & processed
+            - ✅ Latest police data (auto-downloaded & processed)
             - ✅ README.md with updated statistics
             - ✅ ANALYSIS.md with latest findings
-            - ✅ 4 professional visualizations regenerated
+            - ✅ 4 professional static visualizations
+            - ✅ 2 animated visualizations (GIFs)
             - ✅ All documentation auto-updated
           files: |
             data/processed/geocoded_data.csv
@@ -82,6 +83,8 @@ jobs:
             visualizations/viz_2_weekday_expert.png
             visualizations/viz_3_bike_value_expert.png
             visualizations/viz_4_success_rate_expert.png
+            visualizations/animated_peak_hours.gif
+            visualizations/animated_weekday_comparison.gif
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
