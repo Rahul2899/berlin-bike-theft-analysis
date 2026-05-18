@@ -169,7 +169,7 @@ Implication: Thieves know exactly what they're doing
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/berlin-bike-theft-analysis.git
+git clone https://github.com/Rahul2899/berlin-bike-theft-analysis.git
 cd berlin-bike-theft-analysis
 
 # Install dependencies
