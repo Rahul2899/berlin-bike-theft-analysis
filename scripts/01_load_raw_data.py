@@ -18,7 +18,7 @@ def load_raw_data(csv_path='data/raw/Fahrraddiebstahl.csv'):
     print("="*70)
 
     print(f"\nLoading from: {csv_path}")
-    df = pd.read_csv(csv_path)
+    df = pd.read_csv(csv_path, encoding='latin-1')
 
     print(f"✓ Loaded successfully")
     print(f"\nDataset shape: {df.shape[0]:,} rows × {df.shape[1]} columns")
