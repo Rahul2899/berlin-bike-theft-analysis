@@ -9,7 +9,7 @@
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/berlin-bike-theft-analysis.git
+git clone https://github.com/Rahul2899/berlin-bike-theft-analysis.git
 cd berlin-bike-theft-analysis
 ```
 
@@ -91,7 +91,7 @@ pip install -r requirements.txt
 ### "FileNotFoundError: data/processed/geocoded_data.csv"
 Make sure you cloned the full repository with data files:
 ```bash
-git clone https://github.com/YOUR_USERNAME/berlin-bike-theft-analysis.git
+git clone https://github.com/Rahul2899/berlin-bike-theft-analysis.git
 ```
 
 ### Python version too old
