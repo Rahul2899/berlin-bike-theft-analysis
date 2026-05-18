@@ -21,6 +21,79 @@
 
 ---
 
+## 📚 Documentation
+
+**Full Analysis Pipeline:**
+
+1. **[DATA_SOURCES.md](DATA_SOURCES.md)** - Where the data comes from and how to access it
+   - Berlin Open Data Portal information
+   - Data structure and fields
+   - How to download raw data
+   - Data limitations and assumptions
+
+2. **[ETL.md](ETL.md)** - Data extraction, transformation, and loading process
+   - Extract: Loading raw data
+   - Transform: Cleaning, parsing, validation steps
+   - Load: Creating processed dataset
+   - Data quality metrics and error handling
+
+3. **[EDA.md](EDA.md)** - Exploratory data analysis and pattern discovery
+   - Temporal patterns (hours, days, months)
+   - Geographic patterns
+   - Bike value analysis
+   - Correlations and anomalies
+
+4. **[ANALYSIS.md](ANALYSIS.md)** - Complete methodology and detailed findings
+   - Statistical methods
+   - Full findings breakdown
+   - Recommendations for cyclists
+   - Policy implications
+
+---
+
+## 🔬 Scripts: The Data Science Workflow
+
+Run the complete analysis pipeline step-by-step:
+
+### Step 1: Load Raw Data
+```bash
+python scripts/01_load_raw_data.py
+```
+Loads and inspects the original Berlin police data
+
+### Step 2: Data Cleaning & Transformation
+```bash
+python scripts/02_data_cleaning.py
+```
+Cleans, validates, and produces `data/processed/geocoded_data.csv`
+
+### Step 3: Exploratory Data Analysis
+```bash
+python scripts/03_eda.py
+```
+Explores patterns, correlations, and anomalies in the data
+
+### Step 4: Final Analysis
+```bash
+python scripts/04_analysis.py
+```
+Extracts the 4 key findings with statistics
+
+### Run All Steps
+```bash
+python scripts/01_load_raw_data.py && \
+python scripts/02_data_cleaning.py && \
+python scripts/03_eda.py && \
+python scripts/04_analysis.py
+```
+
+Or use the final runnable script:
+```bash
+python src/analysis.py
+```
+
+---
+
 ## 📊 Visualizations
 
 ### 1. Peak Theft Hour
