@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   analyze:
@@ -29,6 +29,45 @@ jobs:
       
       - run: python scripts/03_eda.py
       
-      - run: python src/analysis.py
+      - run: python src/analysis.py > analysis_latest.txt
       
-      - run: echo "✅ Analysis complete"
+      - name: Check if data changed
+        id: check-changes
+        run: |
+          if git diff --quiet data/processed/geocoded_data.csv; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Commit and push updated data
+        if: steps.check-changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/processed/geocoded_data.csv analysis_latest.txt
+          git commit -m "Auto-update: Latest Berlin bike theft data ($(date +'%Y-%m-%d'))"
+          git push
+      
+      - name: Create Release
+        if: steps.check-changes.outputs.changed == 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: data-$(date +'%Y-%m-%d')
+          name: Data Update - $(date +'%Y-%m-%d')
+          body: |
+            ## 🚴 Automatic Data Update
+            
+            **Date:** $(date +'%Y-%m-%d')
+            **Records:** $(wc -l < data/processed/geocoded_data.csv)
+            
+            Latest Berlin bike theft analysis has been processed and updated.
+          files: |
+            data/processed/geocoded_data.csv
+            analysis_latest.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Data already up-to-date
+        if: steps.check-changes.outputs.changed == 'false'
+        run: echo "✓ Data unchanged, no update needed"
