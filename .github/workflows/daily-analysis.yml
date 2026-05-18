@@ -31,25 +31,28 @@ jobs:
       
       - run: python src/analysis.py > analysis_latest.txt
       
+      - name: Generate visualizations
+        run: python scripts/06_generate_visualizations.py
+      
       - name: Update documentation with latest stats
         run: python scripts/05_update_documentation.py
       
-      - name: Check if data or docs changed
+      - name: Check if anything changed
         id: check-changes
         run: |
-          if git diff --quiet data/processed/geocoded_data.csv README.md ANALYSIS.md; then
+          if git diff --quiet data/processed/geocoded_data.csv README.md ANALYSIS.md visualizations/; then
             echo "changed=false" >> $GITHUB_OUTPUT
           else
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
       
-      - name: Commit and push updated data and docs
+      - name: Commit and push all updates
         if: steps.check-changes.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/processed/geocoded_data.csv README.md ANALYSIS.md analysis_latest.txt
-          git commit -m "Auto-update: Latest Berlin bike theft analysis ($(date +'%Y-%m-%d'))"
+          git add data/processed/geocoded_data.csv README.md ANALYSIS.md visualizations/ analysis_latest.txt
+          git commit -m "Auto-update: Latest Berlin bike theft analysis & visualizations ($(date +'%Y-%m-%d'))"
           git push
       
       - name: Create Release
@@ -64,17 +67,24 @@ jobs:
             **Date:** $(date +'%Y-%m-%d')
             **Records:** $(wc -l < data/processed/geocoded_data.csv)
             
-            Latest Berlin bike theft analysis has been processed.
-            - ✅ Downloaded latest police data
-            - ✅ Cleaned and analyzed
-            - ✅ Updated documentation with latest numbers
-            - ✅ Statistics updated in README & ANALYSIS
+            Latest Berlin bike theft analysis with auto-generated visualizations.
+            
+            ### What's Updated
+            - ✅ Latest police data downloaded & processed
+            - ✅ README.md with updated statistics
+            - ✅ ANALYSIS.md with latest findings
+            - ✅ 4 professional visualizations regenerated
+            - ✅ All documentation auto-updated
           files: |
             data/processed/geocoded_data.csv
             analysis_latest.txt
+            visualizations/viz_1_peak_hour_expert.png
+            visualizations/viz_2_weekday_expert.png
+            visualizations/viz_3_bike_value_expert.png
+            visualizations/viz_4_success_rate_expert.png
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: Data already up-to-date
+      - name: All updates complete
         if: steps.check-changes.outputs.changed == 'false'
-        run: echo "✓ Data and documentation unchanged"
+        run: echo "✓ Data and visualizations already up-to-date"
