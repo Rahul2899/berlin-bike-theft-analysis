@@ -44,6 +44,7 @@ jobs:
             echo "changed=false" >> $GITHUB_OUTPUT
           else
             echo "changed=true" >> $GITHUB_OUTPUT
+            echo "tag_date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
           fi
       
       - name: Commit and push all updates
@@ -59,13 +60,13 @@ jobs:
         if: steps.check-changes.outputs.changed == 'true'
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: data-$(date +'%Y-%m-%d')
-          name: Data Update - $(date +'%Y-%m-%d')
+          tag_name: data-${{ steps.check-changes.outputs.tag_date }}
+          name: Data Update - ${{ steps.check-changes.outputs.tag_date }}
           body: |
             ## 🚴 Automatic Analysis Update
-            
-            **Date:** $(date +'%Y-%m-%d')
-            **Records:** $(wc -l < data/processed/geocoded_data.csv)
+
+            **Date:** ${{ steps.check-changes.outputs.tag_date }}
+            **Records:** Latest bike theft data analyzed
             
             Complete Berlin bike theft analysis with auto-generated visualizations & animations.
             
