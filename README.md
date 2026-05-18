@@ -6,7 +6,7 @@
 [![Status: Analysis Complete](https://img.shields.io/badge/Status-Analysis%20Complete-brightgreen)]()
 
 > **Q:** When do bike thieves strike in Berlin?  
-> **A:** We analyzed 21,403 real theft incidents (Jan 2025 - May 2026) to find out.
+> **A:** We analyzed 22,179 real theft incidents (2025-01-01 to 2026-05-17) to find out.
 
 ---
 
@@ -14,9 +14,9 @@
 
 | Finding | Impact | Implication |
 |---------|--------|-------------|
-| **6 PM is peak theft hour** | 2,334 thefts (10.9% of annual total) | Single hour captures massive concentration |
+| **6 PM is peak theft hour** | 2,421 thefts (10.9% of annual total) | Single hour captures massive concentration |
 | **Weekdays are 3.1x more dangerous** | 75.8% of thefts happen Mon-Fri | Commuters face drastically higher risk |
-| **€500-1000 bikes are targeted** | 30% of all thefts in this range | Mid-range bikes are thieves' sweet spot |
+| **€500-1000 bikes are targeted** | 32.6% of all thefts in this range | Mid-range bikes are thieves' sweet spot |
 | **99.5% theft success rate** | Only 105 attempted (failed) thefts | These are professionals, not amateurs |
 
 ---
@@ -231,7 +231,7 @@ berlin-bike-theft-analysis/
 ```
 Dataset Overview:
 ├─ Total incidents: 21,403
-├─ Time period: Jan 2025 - May 2026 (485 days)
+├─ Time period: 2025-01-01 to 2026-05-17 (485 days)
 ├─ Districts covered: All Berlin (LOR-level data)
 ├─ Geocoded: Yes (latitude, longitude)
 ├─ Timestamped: Yes (date & hour)
@@ -398,5 +398,5 @@ You're free to:
 
 ---
 
-**Last updated:** May 18, 2026  
+**Last updated:** May 18, 2026
 **Status:** Analysis complete, open for contributions

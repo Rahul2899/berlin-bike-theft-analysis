@@ -118,11 +118,11 @@ df = df[(df['incident_date'].notna()) &
 
 ### The Data
 ```
-18:00 (6 PM):  2,334 thefts
+18:00 (18:00  2,421 thefts (peak)
 Percentage:    10.9% of ALL annual thefts
 Comparison:    27x more dangerous than 3 AM (85 thefts)
 
-Time window 4-9 PM: 7,930 thefts (37% of daily total)
+Time window 4-18:00  2,421 thefts (peak) (37% of daily total)
 ```
 
 ### Distribution by Hour
@@ -169,7 +169,7 @@ Time window 4-9 PM: 7,930 thefts (37% of daily total)
 ### What This Means
 **Single-hour concentration is extreme.** In a 24-hour day, one hour captures ~11% of thefts. This isn't random; it's a peak.
 
-If we could prevent just the 6 PM thefts, we'd reduce annual Berlin bike theft by 2,334 incidents.
+If we could prevent just the 6 PM thefts, we'd reduce annual Berlin bike theft by 22,179 incidents.
 
 ---
 
