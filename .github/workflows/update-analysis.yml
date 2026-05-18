@@ -1,0 +1,116 @@
+name: Daily Analysis Update
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Run every day at 6 AM UTC
+  workflow_dispatch:     # Allow manual trigger from GitHub UI
+
+jobs:
+  update-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Download latest Berlin Police data
+        run: |
+          mkdir -p data/raw
+          curl -L "https://www.polizei-berlin.eu/Fahrraddiebstahl/Fahrraddiebstahl.csv" -o data/raw/Fahrraddiebstahl.csv
+          echo "✓ Data downloaded successfully"
+          ls -lh data/raw/Fahrraddiebstahl.csv
+
+      - name: Run data cleaning pipeline
+        run: |
+          echo "=== Cleaning data ==="
+          python scripts/02_data_cleaning.py
+
+      - name: Run exploratory analysis
+        run: |
+          echo "=== Running EDA ==="
+          python scripts/03_eda.py
+
+      - name: Run final analysis
+        run: |
+          echo "=== Running final analysis ==="
+          python src/analysis.py > analysis_latest.txt
+          echo "✓ Analysis complete"
+
+      - name: Check if data changed
+        id: check-changes
+        run: |
+          if git diff --quiet data/processed/geocoded_data.csv; then
+            echo "changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push if data changed
+        if: steps.check-changes.outputs.changes == 'true'
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+
+          # Count new records
+          RECORD_COUNT=$(tail -1 data/processed/geocoded_data.csv | wc -l)
+
+          git add data/processed/geocoded_data.csv
+          git commit -m "Auto-update: Latest Berlin bike theft data ($(date +'%Y-%m-%d'))"
+          git push
+
+      - name: No changes (data already up-to-date)
+        if: steps.check-changes.outputs.changes == 'false'
+        run: echo "✓ Data already up-to-date, no commit needed"
+
+      - name: Create GitHub Release (on data update)
+        if: steps.check-changes.outputs.changes == 'true'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: data-$(date +'%Y-%m-%d')
+          release_name: Data Update - $(date +'%Y-%m-%d')
+          body: |
+            ## 🔄 Automatic Data Update
+
+            **Date:** $(date +'%Y-%m-%d')
+            **Source:** Berlin Police - Fahrraddiebstahl Dataset
+
+            Latest analysis data has been processed and committed.
+
+            ### Changes
+            - ✅ Downloaded latest Berlin police bike theft data
+            - ✅ Cleaned and validated records
+            - ✅ Regenerated analysis
+
+            View the analysis: [ANALYSIS.md](../../ANALYSIS.md)
+          draft: false
+          prerelease: false
+
+  # Notify on success
+  notify-success:
+    runs-on: ubuntu-latest
+    needs: update-analysis
+    if: success()
+    steps:
+      - name: Success notification
+        run: echo "✅ Daily analysis update completed successfully"
+
+  # Notify on failure
+  notify-failure:
+    runs-on: ubuntu-latest
+    needs: update-analysis
+    if: failure()
+    steps:
+      - name: Failure notification
+        run: echo "❌ Daily analysis update failed - check logs"
