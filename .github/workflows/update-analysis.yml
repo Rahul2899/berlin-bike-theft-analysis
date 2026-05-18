@@ -65,13 +65,13 @@ jobs:
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/Rahul2899/berlin-bike-theft-analysis.git
 
           # Count new records
           RECORD_COUNT=$(tail -1 data/processed/geocoded_data.csv | wc -l)
 
           git add data/processed/geocoded_data.csv
           git commit -m "Auto-update: Latest Berlin bike theft data ($(date +'%Y-%m-%d'))"
-          gh auth setup-git
           git push
 
       - name: No changes (data already up-to-date)
