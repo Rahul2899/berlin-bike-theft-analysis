@@ -32,9 +32,9 @@ jobs:
       - run: python src/analysis.py > analysis_latest.txt
       
       - run: python scripts/06_generate_visualizations.py
-      
-      - run: python scripts/07_create_animated_videos.py
-      
+
+      - run: python scripts/08_create_video_animations.py
+
       - run: python scripts/05_update_documentation.py
       
       - name: Check if anything changed
@@ -74,8 +74,8 @@ jobs:
             - ✅ Latest police data (auto-downloaded & processed)
             - ✅ README.md with updated statistics
             - ✅ ANALYSIS.md with latest findings
-            - ✅ 4 professional static visualizations
-            - ✅ 2 animated visualizations (GIFs)
+            - ✅ 4 professional static visualizations (PNG)
+            - ✅ 2 professional video animations (MP4, slow & detailed)
             - ✅ All documentation auto-updated
           files: |
             data/processed/geocoded_data.csv
@@ -84,8 +84,8 @@ jobs:
             visualizations/viz_2_weekday_expert.png
             visualizations/viz_3_bike_value_expert.png
             visualizations/viz_4_success_rate_expert.png
-            visualizations/animated_peak_hours.gif
-            visualizations/animated_weekday_comparison.gif
+            visualizations/peak_hours_animation.mp4
+            visualizations/weekday_animation.mp4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
