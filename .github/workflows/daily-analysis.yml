@@ -31,22 +31,25 @@ jobs:
       
       - run: python src/analysis.py > analysis_latest.txt
       
-      - name: Check if data changed
+      - name: Update documentation with latest stats
+        run: python scripts/05_update_documentation.py
+      
+      - name: Check if data or docs changed
         id: check-changes
         run: |
-          if git diff --quiet data/processed/geocoded_data.csv; then
+          if git diff --quiet data/processed/geocoded_data.csv README.md ANALYSIS.md; then
             echo "changed=false" >> $GITHUB_OUTPUT
           else
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
       
-      - name: Commit and push updated data
+      - name: Commit and push updated data and docs
         if: steps.check-changes.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/processed/geocoded_data.csv analysis_latest.txt
-          git commit -m "Auto-update: Latest Berlin bike theft data ($(date +'%Y-%m-%d'))"
+          git add data/processed/geocoded_data.csv README.md ANALYSIS.md analysis_latest.txt
+          git commit -m "Auto-update: Latest Berlin bike theft analysis ($(date +'%Y-%m-%d'))"
           git push
       
       - name: Create Release
@@ -56,12 +59,16 @@ jobs:
           tag_name: data-$(date +'%Y-%m-%d')
           name: Data Update - $(date +'%Y-%m-%d')
           body: |
-            ## 🚴 Automatic Data Update
+            ## 🚴 Automatic Analysis Update
             
             **Date:** $(date +'%Y-%m-%d')
             **Records:** $(wc -l < data/processed/geocoded_data.csv)
             
-            Latest Berlin bike theft analysis has been processed and updated.
+            Latest Berlin bike theft analysis has been processed.
+            - ✅ Downloaded latest police data
+            - ✅ Cleaned and analyzed
+            - ✅ Updated documentation with latest numbers
+            - ✅ Statistics updated in README & ANALYSIS
           files: |
             data/processed/geocoded_data.csv
             analysis_latest.txt
@@ -70,4 +77,4 @@ jobs:
       
       - name: Data already up-to-date
         if: steps.check-changes.outputs.changed == 'false'
-        run: echo "✓ Data unchanged, no update needed"
+        run: echo "✓ Data and documentation unchanged"
