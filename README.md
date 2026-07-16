@@ -45,7 +45,7 @@ This isn't Jupyter notebook analysis. This is **production-grade engineering** s
 
 | Finding | Impact | Implication |
 |---------|--------|-------------|
-| **6 PM is peak theft hour** | 2,787 thefts (10.9% of annual total) | Single hour captures massive concentration |
+| **6 PM is peak theft hour** | 2,816 thefts (11.0% of annual total) | Single hour captures massive concentration |
 | **Weekdays are 3.1x more dangerous** | 75.8% of thefts happen Mon-Fri | Commuters face drastically higher risk |
 | **€500-1000 bikes are targeted** | 32.6% of all thefts in this range | Mid-range bikes are thieves' sweet spot |
 | **99.5% theft success rate** | Only 105 attempted (failed) thefts | These are professionals, not amateurs |
@@ -429,5 +429,5 @@ You're free to:
 
 ---
 
-**Last updated:** July 15, 2026
+**Last updated:** July 16, 2026
 **Status:** Analysis complete, open for contributions
