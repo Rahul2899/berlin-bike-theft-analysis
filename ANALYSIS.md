@@ -169,7 +169,7 @@ Time window 4-18:00  2,421 thefts (peak) (37% of daily total)
 ### What This Means
 **Single-hour concentration is extreme.** In a 24-hour day, one hour captures ~11% of thefts. This isn't random; it's a peak.
 
-If we could prevent just the 6 PM thefts, we'd reduce annual Berlin bike theft by 25,908 incidents.
+If we could prevent just the 6 PM thefts, we'd reduce annual Berlin bike theft by 25,935 incidents.
 
 ---
 
