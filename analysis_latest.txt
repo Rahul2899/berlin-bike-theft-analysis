@@ -2,28 +2,28 @@
 🚴 BERLIN BIKE THEFT ANALYSIS
 Analyzing 21,403 real theft incidents...
 
-✓ Loaded 26,565 records
+✓ Loaded 26,611 records
 
 ======================================================================
 FINDING #1: PEAK THEFT HOUR
 ======================================================================
 
-6 PM (18:00): 2,901 thefts
+6 PM (18:00): 2,904 thefts
 Percentage: 10.9% of annual total
 Comparison: 27x more dangerous than 3 AM
 
-Danger zone (4-9 PM): 12,008 thefts
+Danger zone (4-9 PM): 12,029 thefts
 
 ======================================================================
 FINDING #2: WEEKDAY EFFECT
 ======================================================================
 
-Weekdays (Mon-Fri): 20,085 thefts (75.6%)
+Weekdays (Mon-Fri): 20,131 thefts (75.6%)
 Weekends (Sat-Sun): 6,480 thefts (24.4%)
 
 Ratio: 3.1x MORE DANGEROUS on weekdays
 
-Most dangerous day: Friday (4,139 thefts)
+Most dangerous day: Friday (4,149 thefts)
 Safest day: Sunday (2,920 thefts)
 
 ======================================================================
@@ -34,11 +34,11 @@ Average stolen bike: €1,279
 Median stolen bike: €900
 
 Thieves' target breakdown:
-  <€500        -  23.7% (6,248 thefts)
-  €500-1000    -  30.0% (7,908 thefts)
-  €1000-1500   -  17.0% (4,481 thefts)
-  €1500-2000   -  10.0% (2,628 thefts)
-  €2000+       -  19.2% (5,067 thefts)
+  <€500        -  23.7% (6,260 thefts)
+  €500-1000    -  30.0% (7,918 thefts)
+  €1000-1500   -  17.0% (4,487 thefts)
+  €1500-2000   -  10.0% (2,633 thefts)
+  €2000+       -  19.3% (5,079 thefts)
 
 ⭐ MOST TARGETED: €500-1000 range (30.0% of all thefts)
 
@@ -46,8 +46,8 @@ Thieves' target breakdown:
 FINDING #4: THEFT SUCCESS RATE
 ======================================================================
 
-Total incidents: 26,565
-Successful thefts: 26,565 (99.5%)
+Total incidents: 26,611
+Successful thefts: 26,611 (99.5%)
 Attempted thefts: ~105 (0.5%)
 
 ⚠️  INTERPRETATION: These are PROFESSIONAL thieves
@@ -60,7 +60,7 @@ Attempted thefts: ~105 (0.5%)
 BERLIN BIKE THEFT ANALYSIS - EXECUTIVE SUMMARY
 ======================================================================
 
-Dataset: 26,565 verified incidents
+Dataset: 26,611 verified incidents
 Time period: Jan 2025 - May 2026 (485 days)
 Data quality: 99.2% complete
 Source: Berlin Open Data Portal (official police records)
