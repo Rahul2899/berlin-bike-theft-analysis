@@ -2,29 +2,29 @@
 🚴 BERLIN BIKE THEFT ANALYSIS
 Analyzing 21,403 real theft incidents...
 
-✓ Loaded 27,698 records
+✓ Loaded 27,731 records
 
 ======================================================================
 FINDING #1: PEAK THEFT HOUR
 ======================================================================
 
-6 PM (18:00): 3,023 thefts
+6 PM (18:00): 3,026 thefts
 Percentage: 10.9% of annual total
 Comparison: 27x more dangerous than 3 AM
 
-Danger zone (4-9 PM): 12,500 thefts
+Danger zone (4-9 PM): 12,516 thefts
 
 ======================================================================
 FINDING #2: WEEKDAY EFFECT
 ======================================================================
 
-Weekdays (Mon-Fri): 20,965 thefts (75.7%)
-Weekends (Sat-Sun): 6,733 thefts (24.3%)
+Weekdays (Mon-Fri): 20,989 thefts (75.7%)
+Weekends (Sat-Sun): 6,742 thefts (24.3%)
 
 Ratio: 3.1x MORE DANGEROUS on weekdays
 
-Most dangerous day: Friday (4,310 thefts)
-Safest day: Sunday (3,032 thefts)
+Most dangerous day: Friday (4,327 thefts)
+Safest day: Sunday (3,033 thefts)
 
 ======================================================================
 FINDING #3: BIKE VALUE DISTRIBUTION
@@ -34,11 +34,11 @@ Average stolen bike: €1,279
 Median stolen bike: €900
 
 Thieves' target breakdown:
-  <€500        -  23.8% (6,532 thefts)
-  €500-1000    -  29.9% (8,222 thefts)
-  €1000-1500   -  17.0% (4,673 thefts)
-  €1500-2000   -  10.0% (2,756 thefts)
-  €2000+       -  19.2% (5,281 thefts)
+  <€500        -  23.8% (6,539 thefts)
+  €500-1000    -  29.9% (8,231 thefts)
+  €1000-1500   -  17.0% (4,678 thefts)
+  €1500-2000   -  10.0% (2,760 thefts)
+  €2000+       -  19.2% (5,286 thefts)
 
 ⭐ MOST TARGETED: €500-1000 range (29.9% of all thefts)
 
@@ -46,8 +46,8 @@ Thieves' target breakdown:
 FINDING #4: THEFT SUCCESS RATE
 ======================================================================
 
-Total incidents: 27,698
-Successful thefts: 27,698 (99.5%)
+Total incidents: 27,731
+Successful thefts: 27,731 (99.5%)
 Attempted thefts: ~105 (0.5%)
 
 ⚠️  INTERPRETATION: These are PROFESSIONAL thieves
@@ -60,7 +60,7 @@ Attempted thefts: ~105 (0.5%)
 BERLIN BIKE THEFT ANALYSIS - EXECUTIVE SUMMARY
 ======================================================================
 
-Dataset: 27,698 verified incidents
+Dataset: 27,731 verified incidents
 Time period: Jan 2025 - May 2026 (485 days)
 Data quality: 99.2% complete
 Source: Berlin Open Data Portal (official police records)
